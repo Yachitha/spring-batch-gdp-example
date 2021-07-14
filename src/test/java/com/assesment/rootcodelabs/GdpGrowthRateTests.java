@@ -30,7 +30,7 @@ public class GdpGrowthRateTests {
     @Test
     public void greetingShouldReturnMessageFromService() throws Exception {
         GdpRateRequestDTO gdpRateRequestDTO = new GdpRateRequestDTO("NZ", 2016);
-        GdpRateResponseDTO gdpRateResponseDTO = new GdpRateResponseDTO(47894561245.2, "New Zealand");
+        GdpRateResponseDTO gdpRateResponseDTO = new GdpRateResponseDTO(47894561245.2, "New Zealand", 2015);
         when(gdpRateService.getGdpRate(gdpRateRequestDTO)).thenReturn(gdpRateResponseDTO);
         this.mockMvc.perform(post("/gdpRate/getRate"))
                 .andDo(print())

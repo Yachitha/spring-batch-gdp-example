@@ -6,4 +6,6 @@ import com.assesment.rootcodelabs.exception.RequestFailedException;
 
 public interface GdpRateService {
     GdpRateResponseDTO getGdpRate(GdpRateRequestDTO gdpRateRequestDTO) throws RequestFailedException;
+    GdpRateResponseDTO featchGdprate(String countryCode, Integer year) throws RequestFailedException;
+    int addNum(int i, int j);
 }

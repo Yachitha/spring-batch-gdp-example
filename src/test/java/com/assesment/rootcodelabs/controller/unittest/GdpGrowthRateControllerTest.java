@@ -39,7 +39,7 @@ class GdpGrowthRateControllerTest {
     @Test
     void getGdpRate() throws Exception {
         GdpRateRequestDTO gdpRateRequestDTO = new GdpRateRequestDTO("NZ", 2016);
-        GdpRateResponseDTO responseDTO = new GdpRateResponseDTO(16619960402.0, "Zimbabwe");
+        GdpRateResponseDTO responseDTO = new GdpRateResponseDTO(16619960402.0, "Zimbabwe", 2015);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/gdpRate/getRate")
                 .contentType(MediaType.APPLICATION_JSON)

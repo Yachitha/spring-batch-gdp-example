@@ -8,12 +8,7 @@ import com.assesment.rootcodelabs.util.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.NoSuchElementException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/gdpRate")
@@ -26,7 +21,7 @@ public class GdpGrowthRateController {
     public ResponseEntity<ResponseMessage<?>> getGdpRate(@RequestBody GdpRateRequestDTO gdpRateRequestDTO) {
         try {
             GdpRateResponseDTO gdpRate = gdpRateService.getGdpRate(gdpRateRequestDTO);
-            ResponseMessage<?> responseMessage = null;
+            ResponseMessage<?> responseMessage;
             if (gdpRate == null) {
                 responseMessage = new ResponseMessage<>(null, HttpStatus.BAD_REQUEST.value(),
                         "No data found");
@@ -37,10 +32,6 @@ public class GdpGrowthRateController {
 
             return new ResponseEntity<>(responseMessage, HttpStatus.OK);
 
-        } catch (NoSuchElementException e) {
-            ResponseMessage<?> responseMessage = new ResponseMessage<>(null, HttpStatus.BAD_REQUEST.value(),
-                    "Invalid subject");
-            return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
         } catch (RequestFailedException e) {
             ResponseMessage<?> responseMessage = new ResponseMessage<>(null, HttpStatus.BAD_REQUEST.value(),
                     e.getMessage());
@@ -49,6 +40,22 @@ public class GdpGrowthRateController {
             ResponseMessage<?> responseMessage = new ResponseMessage<>(null, HttpStatus.INTERNAL_SERVER_ERROR.value(),
                     "Get Gdp rate error");
             return new ResponseEntity<>(responseMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/featchGdpData/{countryCode}/{year}")
+    public ResponseEntity<ResponseMessage<?>> getGdpRateGetVersion(@PathVariable String countryCode, @PathVariable Integer year) {
+        try {
+            GdpRateResponseDTO gdpRate = gdpRateService.featchGdprate(countryCode, year);
+            ResponseMessage<?> responseMessage = new ResponseMessage<>(gdpRate, HttpStatus.OK.value(), "Data featch success");
+
+            return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+        } catch (RequestFailedException e) {
+            ResponseMessage<?> responseMessage = new ResponseMessage<>(null, HttpStatus.BAD_REQUEST.value(), "Get gdp error");
+            return new ResponseEntity<>(responseMessage, HttpStatus.BAD_GATEWAY);
+        } catch (Exception ex) {
+            ResponseMessage<?> responseMessage = new ResponseMessage<>(null, HttpStatus.BAD_REQUEST.value(), "Internal error");
+            return new ResponseEntity<>(responseMessage, HttpStatus.BAD_GATEWAY);
         }
     }
 }

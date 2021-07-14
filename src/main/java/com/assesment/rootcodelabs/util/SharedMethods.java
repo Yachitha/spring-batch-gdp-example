@@ -16,8 +16,7 @@ public class SharedMethods {
 
     public static String getErrorMessageString(GeneralError error) {
         try {
-            Gson gson = new Gson();
-            return gson.toJson(error);
+            return "Error: " + error.getErrorMessage() + "\ncode: " + error.getErrorCode();
         } catch (Exception ex) {
             if (error != null) {
                 return "INVALID DATA: " + error.getErrorMessage();

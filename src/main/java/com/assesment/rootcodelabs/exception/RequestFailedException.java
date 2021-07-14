@@ -8,6 +8,7 @@ public class RequestFailedException extends Exception {
     public static String FAULT_MESSAGE = "Internal Error occured";
 
     public static final String FIELDS_NOT_VALID = "Invalid";
+    public static final String NO_DATA_FOUND = "No Data found";
 
     public RequestFailedException(Throwable throwable) {
         super(throwable);
