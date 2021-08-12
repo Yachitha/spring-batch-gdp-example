@@ -2,7 +2,6 @@ package com.assesment.rootcodelabs.util;
 
 import com.assesment.rootcodelabs.exception.GeneralError;
 import com.assesment.rootcodelabs.exception.RequestFailedException;
-import com.google.gson.Gson;
 
 public class SharedMethods {
     private static SharedMethods instance;
